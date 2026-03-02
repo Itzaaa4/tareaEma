@@ -243,6 +243,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">
+        <?php
+          $headerPage = $header_page ?? $hearder_page ?? null;
+          if (is_array($headerPage) && isset($headerPage['titulo'])) {
+            echo breadcrumb_helper($headerPage['titulo'], $headerPage['breadcrumb'] ?? []);
+          }
+        ?>
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->

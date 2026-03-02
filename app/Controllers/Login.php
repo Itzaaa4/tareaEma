@@ -28,7 +28,7 @@ class Login extends BaseController
             ];
             session()->set($sessionData);
             
-            return redirect()->to('/')->with('success', '¡Bienvenido!');
+            return redirect()->to('/dashboard')->with('success', '¡Bienvenido!');
         } else {
             return redirect()->back()
                 ->with('error', 'Email o contraseña incorrectos')

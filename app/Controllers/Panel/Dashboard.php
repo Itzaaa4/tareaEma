@@ -3,47 +3,46 @@
 namespace App\Controllers\Panel;
 
 use App\Controllers\BaseController;
-use CodeIgniter\HTTP\ResponseInterface;
 
 class Dashboard extends BaseController
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @var string $view Nombre de la vista a renderizar
-     */
-    private string $view='Panel/dashboard_admin';
-    
+    private string $view = 'Panel/dashboard_admin';
 
-    public function __construct(){}
+    public function __construct()
+    {
+        helper('array');
+    }
 
-    private function cargarDatos(): array {
-        $datos=array();
+    private function cargardatos(): array
+    {
+        $datos = [];
 
-       
+        $datos['nombre_pagina'] = 'Dashboard';
+        $datos['titulo'] = 'Yamis';
 
-     
-        $datos['nombre_pagina']='Dashboard';
+        $breadcrum = [
+            [
+                'href'   => route_to('dashboard'),
+                'titulo' => 'Dashboard ',
+            ],
+            [
+                'href'   => '#',
+                'titulo' => 'Dashboard vista',
+            ],
+        ];
 
-        $datos['hearder_page']=array(
-            'titulo'=>$datos['nombre_pagina'],
-            'breadcrumb'=>array()
-        );
-        $datos['titulo']='Yamis';
-        
-        
+        $datos['header_page'] = [
+            'titulo' => $datos['titulo'],
+            'breadcrumb' => $breadcrum,
+        ];
+
+        $datos['breadcrumb_panel'] = breadcrumb_panel($datos['titulo'], $breadcrum);
 
         return $datos;
     }
 
-
-
-    /**
-     * cargar los datos necesarios para renderizar la vista
-     * @return array $datos a pasar a la vista
-     */
-
-    public function index(): string{
-        return view($this->view, $this->cargarDatos());
+    public function index(): string
+    {
+        return view($this->view, $this->cargardatos());
     }
 }
